@@ -1,0 +1,450 @@
+Department of Computer Science and Engineering - HKUST
+http://www.cse.ust.hk
+1679733249000, 6719
+depart 1; comput 1; scienc 3; engin 1; hkust 16; more 1; hkust 16; univers 3; new 9; academ 5; 
+https://hkust.edu.hk/news
+https://hkust.edu.hk/academics/list
+https://hkust.edu.hk/lifehkust
+https://library.hkust.edu.hk/
+https://hkust.edu.hk/visit
+https://hkustcareers.hkust.edu.hk/
+https://facultyprofiles.hkust.edu.hk/
+https://hkust.edu.hk/about
+https://cse.hkust.edu.hk/admin/intranet/
+https://seng.hkust.edu.hk/
+
+Alumni | HKUST CSE
+https://cse.hkust.edu.hk/admin/people/alumni/
+1679733352000, 1980
+alumni 8; hkust 6; cse 5; more 1; hkust 6; univers 4; new 3; academ 3; depart 3; a 1; 
+https://hkust.edu.hk/news
+https://hkust.edu.hk/academics/list
+https://hkust.edu.hk/lifehkust
+https://library.hkust.edu.hk/
+https://hkust.edu.hk/visit
+https://hkustcareers.hkust.edu.hk/
+https://facultyprofiles.hkust.edu.hk/
+https://hkust.edu.hk/about
+https://cse.hkust.edu.hk/admin/intranet/
+https://seng.hkust.edu.hk/
+
+Faculty | HKUST CSE
+https://cse.hkust.edu.hk/admin/people/faculty/
+1679733344000, 13753
+faculti 7; hkust 5; cse 139; more 1; hkust 5; univers 3; new 3; academ 3; depart 1; a 1; 
+https://hkust.edu.hk/news
+https://hkust.edu.hk/academics/list
+https://hkust.edu.hk/lifehkust
+https://library.hkust.edu.hk/
+https://hkust.edu.hk/visit
+https://hkustcareers.hkust.edu.hk/
+https://facultyprofiles.hkust.edu.hk/
+https://hkust.edu.hk/about
+https://cse.hkust.edu.hk/admin/intranet/
+https://seng.hkust.edu.hk/
+
+About CSE | HKUST CSE
+https://cse.hkust.edu.hk/admin/about/
+1679733333000, 3730
+about 7; cse 5; hkust 6; cse 5; more 1; hkust 6; univers 4; new 3; academ 3; depart 3; 
+https://hkust.edu.hk/news
+https://hkust.edu.hk/academics/list
+https://hkust.edu.hk/lifehkust
+https://library.hkust.edu.hk/
+https://hkust.edu.hk/visit
+https://hkustcareers.hkust.edu.hk/
+https://facultyprofiles.hkust.edu.hk/
+https://hkust.edu.hk/about
+https://cse.hkust.edu.hk/admin/intranet/
+https://seng.hkust.edu.hk/
+
+CSE Intranet | HKUST CSE
+https://cse.hkust.edu.hk/admin/intranet/
+1679733289000, 1914
+cse 7; net 6; hkust 9; cse 7; more 1; hkust 9; univers 3; new 3; academ 3; depart 1; 
+https://hkust.edu.hk/news
+https://hkust.edu.hk/academics/list
+https://hkust.edu.hk/lifehkust
+https://library.hkust.edu.hk/
+https://hkust.edu.hk/visit
+https://hkustcareers.hkust.edu.hk/
+https://facultyprofiles.hkust.edu.hk/
+https://hkust.edu.hk/about
+https://cse.hkust.edu.hk/admin/intranet/
+https://seng.hkust.edu.hk/
+
+Staff | HKUST CSE
+https://cse.hkust.edu.hk/admin/people/staff/
+1679733348000, 3278
+staff 7; hkust 5; cse 3; more 1; hkust 5; univers 3; new 3; academ 4; depart 1; a 1; 
+https://hkust.edu.hk/news
+https://hkust.edu.hk/academics/list
+https://hkust.edu.hk/lifehkust
+https://library.hkust.edu.hk/
+https://hkust.edu.hk/visit
+https://hkustcareers.hkust.edu.hk/
+https://facultyprofiles.hkust.edu.hk/
+https://hkust.edu.hk/about
+https://cse.hkust.edu.hk/admin/intranet/
+https://seng.hkust.edu.hk/
+
+Faculty Intranet | HKUST CSE
+https://cse.hkust.edu.hk/Restricted/
+1679733320000, 2129
+faculti 7; net 4; hkust 8; cse 10; more 1; hkust 8; univers 3; new 3; academ 3; depart 1; 
+https://hkust.edu.hk/news
+https://hkust.edu.hk/academics/list
+https://hkust.edu.hk/lifehkust
+https://library.hkust.edu.hk/
+https://hkust.edu.hk/visit
+https://hkustcareers.hkust.edu.hk/
+https://facultyprofiles.hkust.edu.hk/
+https://hkust.edu.hk/about
+https://cse.hkust.edu.hk/admin/intranet/
+https://seng.hkust.edu.hk/
+
+News | The Hong Kong University of Science and Technology
+https://hkust.edu.hk/news
+1679733256000, 15632
+new 13; the 8; hong 9; kong 9; univers 11; scienc 15; technologi 9; skip 1; main 1; content 2; 
+https://hkust.edu.hk/news#main-content
+https://hkust.edu.hk/news/announcements
+https://hkust.edu.hk/news#
+https://hkust.edu.hk/student
+https://hkust.edu.hk/faculty-and-staff
+https://hkust.edu.hk/media
+https://hkust-gz.edu.cn/
+https://shaw-auditorium.hkust.edu.hk/
+https://calendar.ust.hk
+https://hkust.edu.hk/visit
+
+Department of Computer Science and Engineering - HKUST
+https://cse.hkust.edu.hk/
+1679733312000, 6719
+depart 3; comput 8; scienc 4; engin 6; hkust 16; more 4; hkust 16; univers 3; new 9; academ 5; 
+https://hkust.edu.hk/news
+https://hkust.edu.hk/academics/list
+https://hkust.edu.hk/lifehkust
+https://library.hkust.edu.hk/
+https://hkust.edu.hk/visit
+https://hkustcareers.hkust.edu.hk/
+https://facultyprofiles.hkust.edu.hk/
+https://hkust.edu.hk/about
+https://cse.hkust.edu.hk/admin/intranet/
+https://seng.hkust.edu.hk/
+
+QS Top 10 Universities in China by subject|HKUST
+https://hkust.edu.hk/about
+1679733284000, 23168
+qs 13; top 21; 10 12; univers 124; china 24; subject 21; hkust 94; skip 1; main 1; content 2; 
+https://hkust.edu.hk/about#main-content
+https://hkust.edu.hk/news/announcements
+https://hkust.edu.hk/about#
+https://hkust.edu.hk/student
+https://hkust.edu.hk/faculty-and-staff
+https://hkust.edu.hk/media
+https://hkust-gz.edu.cn/
+https://shaw-auditorium.hkust.edu.hk/
+https://calendar.ust.hk
+https://hkust.edu.hk/visit
+
+Visit | The Hong Kong University of Science and Technology
+https://hkust.edu.hk/visit
+1679733276000, 14709
+visit 8; the 9; hong 9; kong 9; univers 11; scienc 5; technologi 2; skip 1; main 1; content 1; 
+https://hkust.edu.hk/visit#main-content
+https://hkust.edu.hk/news/announcements
+https://hkust.edu.hk/visit#
+https://hkust.edu.hk/student
+https://hkust.edu.hk/faculty-and-staff
+https://hkust.edu.hk/media
+https://hkust-gz.edu.cn/
+https://shaw-auditorium.hkust.edu.hk/
+https://calendar.ust.hk
+https://hkust.edu.hk/visit
+
+News | HKUST CSE
+https://cse.hkust.edu.hk/News/
+1679733337000, 8062
+new 9; hkust 15; cse 15; more 1; hkust 15; univers 3; new 9; academ 23; depart 1; a 1; 
+https://hkust.edu.hk/news
+https://hkust.edu.hk/academics/list
+https://hkust.edu.hk/lifehkust
+https://library.hkust.edu.hk/
+https://hkust.edu.hk/visit
+https://hkustcareers.hkust.edu.hk/
+https://facultyprofiles.hkust.edu.hk/
+https://hkust.edu.hk/about
+https://cse.hkust.edu.hk/admin/intranet/
+https://seng.hkust.edu.hk/
+
+Undergraduate Programs | HKUST CSE
+https://cse.hkust.edu.hk/ug/
+1679733317000, 5148
+undergradu 10; program 21; hkust 8; cse 7; more 2; hkust 8; univers 3; new 4; academ 3; depart 4; 
+https://hkust.edu.hk/news
+https://hkust.edu.hk/academics/list
+https://hkust.edu.hk/lifehkust
+https://library.hkust.edu.hk/
+https://hkust.edu.hk/visit
+https://hkustcareers.hkust.edu.hk/
+https://facultyprofiles.hkust.edu.hk/
+https://hkust.edu.hk/about
+https://cse.hkust.edu.hk/admin/intranet/
+https://seng.hkust.edu.hk/
+
+Postgraduate Programs | HKUST CSE
+https://cse.hkust.edu.hk/pg/
+1679733318000, 2618
+postgradu 9; program 12; hkust 7; cse 5; more 1; hkust 7; univers 8; new 4; academ 3; depart 2; 
+https://hkust.edu.hk/news
+https://hkust.edu.hk/academics/list
+https://hkust.edu.hk/lifehkust
+https://library.hkust.edu.hk/
+https://hkust.edu.hk/visit
+https://hkustcareers.hkust.edu.hk/
+https://facultyprofiles.hkust.edu.hk/
+https://hkust.edu.hk/about
+https://cse.hkust.edu.hk/admin/intranet/
+https://seng.hkust.edu.hk/
+
+Mission and Vision | HKUST CSE
+https://cse.hkust.edu.hk/admin/mission/
+1679733330000, 4499
+mission 5; vision 5; hkust 5; cse 3; more 1; hkust 5; univers 3; new 3; academ 5; depart 2; 
+https://hkust.edu.hk/news
+https://hkust.edu.hk/academics/list
+https://hkust.edu.hk/lifehkust
+https://library.hkust.edu.hk/
+https://hkust.edu.hk/visit
+https://hkustcareers.hkust.edu.hk/
+https://facultyprofiles.hkust.edu.hk/
+https://hkust.edu.hk/about
+https://cse.hkust.edu.hk/admin/intranet/
+https://seng.hkust.edu.hk/
+
+HKUST Library
+https://library.hkust.edu.hk/
+1679733271000, 14333
+hkust 21; librari 29; skip 1; content 2; more 2; hkust 21; univers 7; new 9; academ 3; depart 2; 
+https://hkust.edu.hk/news
+https://hkust.edu.hk/academics/list
+https://hkust.edu.hk/lifehkust
+https://library.hkust.edu.hk
+https://hkust.edu.hk/map-directions
+https://hkustcareers.ust.hk/
+https://facultyprofiles.ust.hk/
+https://hkust.edu.hk/about
+https://www.ust.hk/
+https://library.hkust.edu.hk/
+
+Academic Departments | The Hong Kong University of Science and Technology
+https://hkust.edu.hk/academics/list
+1679733261000, 16554
+academ 13; depart 40; the 8; hong 13; kong 13; univers 3; scienc 35; technologi 29; skip 1; main 1; 
+https://hkust.edu.hk/academics/list#main-content
+https://hkust.edu.hk/news/announcements
+https://hkust.edu.hk/academics/list#
+https://hkust.edu.hk/student
+https://hkust.edu.hk/faculty-and-staff
+https://hkust.edu.hk/media
+https://hkust-gz.edu.cn/
+https://shaw-auditorium.hkust.edu.hk/
+https://calendar.ust.hk
+https://hkust.edu.hk/visit
+
+Contact Us | HKUST CSE
+https://cse.hkust.edu.hk/admin/contact/
+1679733341000, 1749
+contact 6; us 6; hkust 6; cse 4; more 1; hkust 6; univers 4; new 3; academ 3; depart 3; 
+https://hkust.edu.hk/news
+https://hkust.edu.hk/academics/list
+https://hkust.edu.hk/lifehkust
+https://library.hkust.edu.hk/
+https://hkust.edu.hk/visit
+https://hkustcareers.hkust.edu.hk/
+https://facultyprofiles.hkust.edu.hk/
+https://hkust.edu.hk/about
+https://cse.hkust.edu.hk/admin/intranet/
+https://seng.hkust.edu.hk/
+
+Welcome from Head of Department | HKUST CSE
+https://cse.hkust.edu.hk/admin/welcome/
+1679733328000, 4554
+welcom 6; head 4; depart 12; hkust 9; cse 7; more 1; hkust 9; univers 4; new 3; academ 3; 
+https://hkust.edu.hk/news
+https://hkust.edu.hk/academics/list
+https://hkust.edu.hk/lifehkust
+https://library.hkust.edu.hk/
+https://hkust.edu.hk/visit
+https://hkustcareers.hkust.edu.hk/
+https://facultyprofiles.hkust.edu.hk/
+https://hkust.edu.hk/about
+https://cse.hkust.edu.hk/admin/intranet/
+https://seng.hkust.edu.hk/
+
+Postgraduate Students | HKUST CSE
+https://cse.hkust.edu.hk/admin/people/pg/
+1679733350000, 2938
+postgradu 11; student 4; hkust 5; cse 3; more 1; hkust 5; univers 3; new 3; academ 3; depart 1; 
+https://hkust.edu.hk/news
+https://hkust.edu.hk/academics/list
+https://hkust.edu.hk/lifehkust
+https://library.hkust.edu.hk/
+https://hkust.edu.hk/visit
+https://hkustcareers.hkust.edu.hk/
+https://facultyprofiles.hkust.edu.hk/
+https://hkust.edu.hk/about
+https://cse.hkust.edu.hk/admin/intranet/
+https://seng.hkust.edu.hk/
+
+Site Search | HKUST CSE
+https://cse.hkust.edu.hk/admin/search/
+1679733295000, 1457
+site 2; search 2; hkust 5; cse 3; more 1; hkust 5; univers 3; new 3; academ 3; depart 1; 
+https://hkust.edu.hk/news
+https://hkust.edu.hk/academics/list
+https://hkust.edu.hk/lifehkust
+https://library.hkust.edu.hk/
+https://hkust.edu.hk/visit
+https://hkustcareers.hkust.edu.hk/
+https://facultyprofiles.hkust.edu.hk/
+https://hkust.edu.hk/about
+https://cse.hkust.edu.hk/admin/intranet/
+https://seng.hkust.edu.hk/
+
+Fast Facts | HKUST CSE
+https://cse.hkust.edu.hk/admin/factsheet/
+1679733335000, 3399
+fast 4; fact 4; hkust 5; cse 3; more 1; hkust 5; univers 8; new 3; academ 3; depart 5; 
+https://hkust.edu.hk/news
+https://hkust.edu.hk/academics/list
+https://hkust.edu.hk/lifehkust
+https://library.hkust.edu.hk/
+https://hkust.edu.hk/visit
+https://hkustcareers.hkust.edu.hk/
+https://facultyprofiles.hkust.edu.hk/
+https://hkust.edu.hk/about
+https://cse.hkust.edu.hk/admin/intranet/
+https://seng.hkust.edu.hk/
+
+Research Areas | HKUST CSE
+https://cse.hkust.edu.hk/pg/research/areas/
+1679733355000, 8922
+research 22; area 3; hkust 5; cse 2; more 1; hkust 5; univers 1; new 2; academ 2; depart 2; 
+https://hkust.edu.hk/news
+https://hkust.edu.hk/academics/list
+https://hkust.edu.hk/lifehkust
+https://library.hkust.edu.hk/
+https://hkust.edu.hk/visit
+https://hkustcareers.hkust.edu.hk/
+https://facultyprofiles.hkust.edu.hk/
+https://hkust.edu.hk/about
+https://cse.hkust.edu.hk/admin/intranet/
+https://seng.hkust.edu.hk/
+
+Job Openings | HKUST CSE
+https://cse.hkust.edu.hk/admin/recruitment/
+1679733340000, 1702
+job 5; open 4; hkust 5; cse 3; more 1; hkust 5; univers 3; new 3; academ 3; depart 1; 
+https://hkust.edu.hk/news
+https://hkust.edu.hk/academics/list
+https://hkust.edu.hk/lifehkust
+https://library.hkust.edu.hk/
+https://hkust.edu.hk/visit
+https://hkustcareers.hkust.edu.hk/
+https://facultyprofiles.hkust.edu.hk/
+https://hkust.edu.hk/about
+https://cse.hkust.edu.hk/admin/intranet/
+https://seng.hkust.edu.hk/
+
+Faculty Profiles | The Hong Kong University of Science and Technology
+https://facultyprofiles.hkust.edu.hk/
+1679733282000, 3392
+faculti 2; profil 2; the 3; hong 3; kong 3; univers 4; scienc 3; technologi 3; more 1; about 2; 
+https://www.ust.hk/news
+https://www.ust.hk/academics/list
+https://www.ust.hk/lifehkust
+http://library.ust.hk/
+https://www.ust.hk/map-directions
+https://www.ab.ust.hk/hro/PubDoc/careers/main.html?btn1=btn_nav_06&main=welcome.html
+https://www.ust.hk/about-hkust
+https://facultyprofiles.hkust.edu.hk/#
+https://facultyprofiles.hkust.edu.hk/#
+https://facultyprofiles.hkust.edu.hk/#
+
+Information for Employers &amp; Industry Partners | HKUST CSE
+https://cse.hkust.edu.hk/admin/industry_collaboration/
+1679733325000, 1691
+inform 5; employ 5; industri 5; partner 4; hkust 5; cse 3; more 1; hkust 5; univers 3; new 3; 
+https://hkust.edu.hk/news
+https://hkust.edu.hk/academics/list
+https://hkust.edu.hk/lifehkust
+https://library.hkust.edu.hk/
+https://hkust.edu.hk/visit
+https://hkustcareers.hkust.edu.hk/
+https://facultyprofiles.hkust.edu.hk/
+https://hkust.edu.hk/about
+https://cse.hkust.edu.hk/admin/intranet/
+https://seng.hkust.edu.hk/
+
+Study at a World-class University in Hong Kong |HKUST
+https://hkust.edu.hk/
+1679733309000, 23707
+studi 21; world 27; class 5; univers 117; hong 95; kong 95; hkust 86; skip 1; main 1; content 1; 
+https://hkust.edu.hk/#main-content
+https://hkust.edu.hk/news/announcements
+https://hkust.edu.hk/#
+https://hkust.edu.hk/student
+https://hkust.edu.hk/faculty-and-staff
+https://hkust.edu.hk/media
+https://hkust-gz.edu.cn/
+https://shaw-auditorium.hkust.edu.hk/
+https://calendar.ust.hk
+https://hkust.edu.hk/visit
+
+Department of Computer Science and Engineering - HKUST
+https://cse.hkust.edu.hk/#
+1679733354000, 6719
+depart 3; comput 8; scienc 2; engin 6; hkust 16; more 4; hkust 16; univers 1; new 9; academ 5; 
+https://hkust.edu.hk/news
+https://hkust.edu.hk/academics/list
+https://hkust.edu.hk/lifehkust
+https://library.hkust.edu.hk/
+https://hkust.edu.hk/visit
+https://hkustcareers.hkust.edu.hk/
+https://facultyprofiles.hkust.edu.hk/
+https://hkust.edu.hk/about
+https://cse.hkust.edu.hk/admin/intranet/
+https://seng.hkust.edu.hk/
+
+Best Study Abroad Programs|Vibrant Study Experience in Hong Kong||HKUST
+https://hkust.edu.hk/lifehkust
+1679733266000, 17897
+best 1; studi 70; abroad 1; program 52; vibrant 1; studi 70; experi 5; hong 70; kong 70; hkust 51; 
+https://hkust.edu.hk/lifehkust#main-content
+https://hkust.edu.hk/news/announcements
+https://hkust.edu.hk/lifehkust#
+https://hkust.edu.hk/student
+https://hkust.edu.hk/faculty-and-staff
+https://hkust.edu.hk/media
+https://hkust-gz.edu.cn/
+https://shaw-auditorium.hkust.edu.hk/
+https://calendar.ust.hk
+https://hkust.edu.hk/visit
+
+HKUST ENGINEERING | HKUST School of Engineering
+https://seng.hkust.edu.hk/
+1679655872000, 15800
+hkust 44; engin 43; hkust 44; school 4; engin 43; skip 1; main 1; content 1; more 41; hkust 44; 
+https://seng.hkust.edu.hk/#main-content
+https://hkust.edu.hk/news
+https://hkust.edu.hk/academics/list
+https://hkust.edu.hk/lifehkust
+http://library.ust.hk
+https://hkust.edu.hk/map-directions
+https://hkustcareers.ust.hk
+https://facultyprofiles.ust.hk
+https://hkust.edu.hk/about-hkust
+https://seng.hkust.edu.hk/prospective-students
+
