@@ -85,6 +85,13 @@ public class DocVector {
         return result;
     }
 
+    public void multiplyScalar(double m) {
+        for (Long dimension : v.keySet()) {
+            double component = v.get(dimension);
+            v.put(dimension, component*m);
+        }
+    }
+
     public int size() {
         return v.size();
     }

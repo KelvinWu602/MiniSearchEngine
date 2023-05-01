@@ -6,7 +6,7 @@ OpenJDK 64-Bit Server VM (build 11.0.18+10-post-Ubuntu-0ubuntu120.04.1, mixed mo
 
 
 build the project with:
-javac -cp ".:lib/htmlparser.jar:lib/jdbm-1.0.jar:src" src/*.java -d bin/
+javac -cp ".:lib/htmlparser.jar:lib/jdbm-1.0.jar:src" src/core/*.java -d bin/
 
 perform webpage crawling with:
 java -cp ".:lib/htmlparser.jar:lib/jdbm-1.0.jar:bin" Spider 
