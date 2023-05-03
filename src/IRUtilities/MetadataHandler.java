@@ -6,7 +6,7 @@ public class MetadataHandler {
     private HTable<Long, PageMetadata> metadatas;
 
     public MetadataHandler() throws IOException {
-        metadatas = new HTable<Long, PageMetadata>(DBFinder.getHTree(TableNames.ID_METADATA));
+        metadatas = new HTable<Long, PageMetadata>(DBFinder.getHTree(TableNames.ID_METADATA),256L);
     }
 
     public void addMetadata(Long pageID, PageMetadata metadata) throws IOException {

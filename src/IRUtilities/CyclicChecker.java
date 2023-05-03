@@ -4,9 +4,10 @@ import java.io.IOException;
 
 public class CyclicChecker {
     private HTable<Long,Boolean> visited;
+    private long size = 0;
 
     public CyclicChecker() throws IOException{
-        visited = new HTable<Long,Boolean>(DBFinder.getHTree(0,true));    
+        visited = new HTable<Long,Boolean>(DBFinder.getHTree(0,true), 128L);    
     }
 
     public void visit(Long pageID) throws IOException{

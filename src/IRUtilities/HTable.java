@@ -7,12 +7,16 @@ import jdbm.helper.FastIterator;
 import jdbm.htree.HTree;
 
 public class HTable<K extends Serializable,V extends Serializable> implements Table<K,V> {
-    HTree table;
-    long size;
+    private HTree table;
+    private long size;
+    private LRUCache<K,V> cache;
 
-    public HTable(HTree src) throws IOException{
+    public HTable(HTree src, long cacheSize) throws IOException{
         table = src;
         size = 0;
+        cache = new LRUCache<K,V>(cacheSize);
+        //count the number of keys in the table
+        //also fill up the cache
         FastIterator iter = table.keys();
         while(iter.next()!=null){
             size++;
@@ -24,12 +28,19 @@ public class HTable<K extends Serializable,V extends Serializable> implements Ta
         V previous = get(key);
         if(previous==null) size ++;
         if(previous!=null && value==null) size--;
+        //store it in both storage and cache
         table.put(key, value);
+        cache.put(key, value);
     }
 
     @Override
     public V get(K key) throws IOException{
-        return (V)table.get(key);
+        //if hit, then return cache value
+        if(cache.get(key)!=null) return cache.get(key);
+        //if not hit, then return storage value, also put it in cache
+        V value = (V)table.get(key);
+        cache.put(key, value);
+        return value;
     }
 
     @Override
@@ -39,7 +50,10 @@ public class HTable<K extends Serializable,V extends Serializable> implements Ta
 
     @Override
     public boolean contains(K key) throws IOException{
-        return table.get(key)!=null;
+        //if it is found in cache, great
+        //otherwise if it is found in storage, great
+        return cache.get(key)!=null || table.get(key)!=null;
+        // return table.get(key)!=null;
     }
 
     @Override
@@ -59,7 +73,9 @@ public class HTable<K extends Serializable,V extends Serializable> implements Ta
     public void remove(K key) throws IOException {
         if(contains(key)) {
             size--;
+            cache.remove(key);
             table.remove(key);
         }
     }
+
 }

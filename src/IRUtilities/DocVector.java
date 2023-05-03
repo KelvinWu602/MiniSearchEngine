@@ -95,4 +95,8 @@ public class DocVector {
     public int size() {
         return v.size();
     }
+
+    public HashMap<Long,Double> getHashMap(){
+        return clone().v;
+    }
 }

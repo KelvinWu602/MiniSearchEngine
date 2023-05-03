@@ -9,8 +9,8 @@ public class IDHandler {
     private long nextID = 0;
     
     public IDHandler(String string_to_id, String id_to_string) throws IOException {
-        strToID = new HTable<String,Long>(DBFinder.getHTree(string_to_id));
-        IDToStr = new HTable<Long,String>(DBFinder.getHTree(id_to_string));
+        strToID = new HTable<String,Long>(DBFinder.getHTree(string_to_id),256L);
+        IDToStr = new HTable<Long,String>(DBFinder.getHTree(id_to_string),256L);
         nextID = strToID.size();
     }
 

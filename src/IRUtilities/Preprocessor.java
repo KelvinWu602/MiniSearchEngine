@@ -115,7 +115,7 @@ public class Preprocessor {
         return i;
     }
 
-    public PageMetadata getMetadata(String url) throws ParserException {
+    public PageMetadata getMetadata(String url) throws ParserException, IOException {
         parser.reset();
 		parser.setURL(url);
 		URLConnection con = parser.getConnection();
@@ -128,6 +128,7 @@ public class Preprocessor {
 		lastmod = (lastmod==0)? con.getDate():lastmod;
 		//get the title
 		NodeList list = parser.parse(new TagNameFilter("Title"));
+        if(list==null || list.elementAt(0)==null) throw new IOException();
 		String title = list.elementAt(0).toPlainTextString();
 		return new PageMetadata(title,size,lastmod);
     }

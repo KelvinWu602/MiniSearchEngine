@@ -17,7 +17,6 @@ public class DBFinder {
     public static MetadataHandler pageMetadata = null;
     public static HTable<Long,Double> pagerankScore = null;
 
-
     public static void init(String dbPath) throws IOException {
         if(recman!=null) return;
         recman = RecordManagerFactory.createRecordManager(dbPath);
@@ -26,7 +25,7 @@ public class DBFinder {
         linkHandler = new LinkHandler();
         cyclicCheck = new CyclicChecker();
         pageMetadata = new MetadataHandler();
-        pagerankScore = new HTable<>(getHTree(TableNames.ID_PAGERANK));
+        pagerankScore = new HTable<>(getHTree(TableNames.ID_PAGERANK),256L);
     }
 
     public static void close() throws IOException {

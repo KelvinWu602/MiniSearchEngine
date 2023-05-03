@@ -1,7 +1,7 @@
-javac -cp ".:lib/htmlparser.jar:lib/jdbm-1.0.jar:src" src/*.java -d bin/
+javac -cp ".:lib/htmlparser.jar:lib/jdbm-1.0.jar:src" src/core/*.java -d bin/
 
 perform webpage crawling with:
-java -cp ".:lib/htmlparser.jar:lib/jdbm-1.0.jar:bin" Spider <number of pages to crawl>
+java -cp ".:lib/htmlparser.jar:lib/jdbm-1.0.jar:bin" core.Spider <number of pages to crawl>
 Spider is rerunnable, without deleting the test.db and test.lg file.
 
 perform pagerank calculation with:

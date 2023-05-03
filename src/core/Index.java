@@ -9,8 +9,10 @@ import java.util.Map;
 
 import IRUtilities.BTable;
 import IRUtilities.DBFinder;
+import IRUtilities.DocVecCache;
 import IRUtilities.DocVector;
 import IRUtilities.HTable;
+import IRUtilities.LRUCache;
 import IRUtilities.Posting;
 import jdbm.helper.LongComparator;
 import jdbm.helper.Tuple;
@@ -25,10 +27,13 @@ public class Index {
     private HTable<Long, Long> invertedIndex;
     //pageID --> Posting
     private BTable<Long, Posting> postingList;
+    //pageID --> DocVecCache {tfmax, {wordID --> tfidf}}
+    private LRUCache<Long, DocVecCache> docVecCache;
 
     public Index(String name) throws IOException {
-        forwardIndex = new HTable<Long, LinkedList<Long>>(DBFinder.getHTree(name + "_forwardIndex"));
-        invertedIndex = new HTable<Long, Long>(DBFinder.getHTree(name + "_invertedIndex"));
+        forwardIndex = new HTable<Long, LinkedList<Long>>(DBFinder.getHTree(name + "_forwardIndex"), 256L);
+        invertedIndex = new HTable<Long, Long>(DBFinder.getHTree(name + "_invertedIndex"), 256L);
+        docVecCache = new LRUCache<Long, DocVecCache>(512); //cache 128 pages
     }
 
     public void forwardIndexAdd(long pageID,LinkedList<Long> wordIDList) throws IOException {
@@ -64,28 +69,48 @@ public class Index {
 
     //the document vector of a page
     //new dimension for each phrase
-    public DocVector getDocVector(long pageID, LinkedList<LinkedList<Long>> phrases) throws IOException {
-        DocVector docVector = new DocVector();
-        LinkedList<Long> wordIDs = forwardIndex.get(pageID);
-        if(wordIDs==null || wordIDs.size()==0) {
-            return docVector;
-        }
+    public DocVector getDocVector(long pageID, LinkedList<LinkedList<Long>> phrases) throws IOException {    
+        //forwardIndex pageID --> wordList
+        //docVecCache  pageID --> {tfmax, {wordID --> tfidf}}
+        //check if the pageID is in the docVecCache
+        DocVecCache docVecCacheEntry = docVecCache.get(pageID);
+        DocVector docVector;
         double N = forwardIndex.size();
-        double tfmax = 0;
+        double tfmax = 1;
+        if(docVecCacheEntry!=null) {
+            // System.out.println("Hit");
+            docVector = new DocVector(docVecCacheEntry.wordIDToTW);
+            tfmax = docVecCacheEntry.tfmax;
+        }else{
+            docVector = new DocVector(); //ok in speed
+            LinkedList<Long> wordIDs = forwardIndex.get(pageID); //ok in speed
+            if(wordIDs==null || wordIDs.size()==0) {
+                return docVector;
+            }
+            tfmax = 0;
 
-        //cache tfxidf for each of the words
-        for(long wordID : wordIDs) {
-            //calculate the term weight for this page
-            postingList = pageContains(wordID);
-            Posting posting = postingList.get(pageID);
-            double df = postingList.size();
-            double tf = (posting!=null)?posting.frequency:0;
-            double idf = Math.log(N/df)/Math.log(2);
-            // System.out.println("term weight for word:" + tf*idf);
-            docVector.addDimension(wordID, tf*idf);
-            //find the tfmax
-            tfmax = Math.max(tf, tfmax);
+            for(long wordID : wordIDs) {
+                //calculate the term weight for this page
+                postingList = pageContains(wordID); //slow
+                Posting posting = postingList.get(pageID); //slow
+                double df = postingList.size(); ///fast
+                double tf = (posting!=null)?posting.frequency:0; //fast
+                double idf = Math.log(N/df)/Math.log(2); //fast
+                // System.out.println("term weight for word:" + tf*idf);
+                docVector.addDimension(wordID, tf*idf); //fast
+                //find the tfmax
+                tfmax = Math.max(tf, tfmax);
+            }
+
+            //cache the docVector
+            docVector.multiplyScalar(1.0/tfmax);
+            DocVecCache newDocVecCacheEntry = new DocVecCache();
+            newDocVecCacheEntry.tfmax = tfmax;
+            newDocVecCacheEntry.wordIDToTW = docVector.getHashMap(); //clone a hashmap for the cache so that it will not include the phrase
+            docVecCache.put(pageID, newDocVecCacheEntry);
+            // System.out.println("Put " + pageID + " cache size " + docVecCache.size());
         }
+        
         //cache tfxidf for each of the phrase
         for(LinkedList<Long> phrase : phrases) {
             HashMap<Long,Posting> postingList = pageContains(phrase);
@@ -94,8 +119,7 @@ public class Index {
             double tf = (posting!=null)?posting.frequency:0;
             double idf = Math.log(N/df)/Math.log(2);
             docVector.addDimension(DBFinder.wordIDHandler.getPhraseTempID(phrase), tf*idf);
-            //also check if phrase's tf > tfmax, if true then update it
-            tfmax = Math.max(tf, tfmax);
+            //max single word tf >= max phrase tf
         }    
 
         docVector.multiplyScalar(1.0/tfmax);
@@ -123,7 +147,7 @@ public class Index {
 
     //return the list of posting containing the word
     public BTable<Long,Posting> pageContains(long wordID) throws IOException {
-        Long postingListID = invertedIndex.get(wordID);
+        Long postingListID = invertedIndex.get(wordID); //ok in speed
         postingList = new BTable<Long, Posting>(DBFinder.getBTree(postingListID, new LongComparator()));
         return postingList;
     }

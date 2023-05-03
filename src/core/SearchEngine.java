@@ -4,18 +4,17 @@ import java.io.IOException;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
-
+import java.util.Map;
+import java.util.Scanner;
 
 import IRUtilities.DBFinder;
 import IRUtilities.DocVector;
 import IRUtilities.Entry;
-import IRUtilities.HTable;
 import IRUtilities.PageMetadata;
 import IRUtilities.PageSummary;
 import IRUtilities.Preprocessor;
 import IRUtilities.Query;
 import IRUtilities.TableNames;
-import jdbm.helper.FastIterator;
 
 public class SearchEngine {
     private static Index contentIndex;
@@ -40,16 +39,19 @@ public class SearchEngine {
         }
     }
 
-    public static LinkedList<Entry> search(String query, int numResults) {
-        LinkedList<Entry> result = new LinkedList<Entry>();
+    public static Query preprocessQuery(String query) {
         Query q;
         try {
             q = preprocessor.preprocessQuery(query);
         } catch (IOException e) {
             System.err.println("Failed to preprocess query.");
-            return result;
+            return new Query();
         }
+        return q;
+    }
 
+    public static LinkedList<Entry> search(Query q, int numResults) {
+        LinkedList<Entry> result = new LinkedList<Entry>();
         System.out.println("Query.words: " + q.words.toString());
         System.out.println("Query.phrases: " + q.phrases.toString());
 
@@ -115,7 +117,7 @@ public class SearchEngine {
                 continue;
             }
             for(Long pageID : pages){
-                // if(scores.containsKey(pageID)) continue;
+                if(scores.containsKey(pageID)) continue;
                 DocVector docV;
                 try {
                     // System.out.println(pageID + " : " + DBFinder.pageIDHandler.getString(pageID));
@@ -138,6 +140,7 @@ public class SearchEngine {
                 continue;
             }
             for(Long pageID : pages){
+                if(scores.containsKey(pageID)) continue;
                 DocVector docV;
                 try {
                     // System.out.println(pageID + " : " + DBFinder.pageIDHandler.getString(pageID));
@@ -155,6 +158,7 @@ public class SearchEngine {
 
     private static LinkedList<String> pageIDToURLs(LinkedList<Long> pageIDs){
         LinkedList<String> urls = new LinkedList<String>();
+        if(pageIDs==null) return urls;
         for(Long pageID : pageIDs){
             try {
                 urls.add(DBFinder.pageIDHandler.getString(pageID));
@@ -182,22 +186,77 @@ public class SearchEngine {
                 long tf = contentIndex.getFrequencyInPage(pageID, wordID);
                 summary.keywords.put(DBFinder.wordIDHandler.getString(wordID), tf);
             }
-        } catch (IOException e) {
-            System.err.println("Failed to get page summary.");
+        } catch (Exception e) {
+            System.err.println("Failed to get page summary for pageID: " + pageID);
         }
         return summary;
+    }
+
+    public static LinkedList<Long> get5MostFrequentWords(long pageID) throws IOException {
+        LinkedList<Long> wordIDList = contentIndex.getWordListOfPage(pageID);
+        LinkedList<Long> result = new LinkedList<Long>();
+        if(wordIDList==null) return result;
+        HashMap<Long,Long> wordFreq = new HashMap<Long,Long>();
+        for(long wordID : wordIDList) {
+            if(!wordFreq.containsKey(wordID)) { wordFreq.put(wordID, 1L); }
+            else { wordFreq.put(wordID, wordFreq.get(wordID)+1); }
+        }
+        LinkedList<Entry> sortlist = new LinkedList<Entry>();
+        for(Map.Entry<Long,Long> entry : wordFreq.entrySet()) {
+            sortlist.add(new Entry(entry.getKey(), entry.getValue()));
+        }
+        sortlist.sort(new Comparator<Entry>() {
+            @Override
+            public int compare(Entry o1, Entry o2) {
+                return Double.compare(o2.component,o1.component);
+            }
+        });
+        while(result.size()<5){
+            result.add(sortlist.removeFirst().dimension);
+        }
+        return result;
+    }
+
+    public static LinkedList<Entry> relevanceFeedbackSearch(Query rawQ, int numResults, LinkedList<Long> relevantWordIDs) {
+        rawQ.words.addAll(relevantWordIDs);
+        return search(rawQ, numResults);
     }
 
 
     public static void main(String[] args) {
         setup();
-        LinkedList<Entry> result = search("facebook instagram \"HKUST\"", 10);
-        System.out.println("result length:" + result.size());
-        for (Entry e : result) {
-            try{
-                PageSummary ps = getPageSummary(e.dimension, e.component);
-                System.out.println("Page ID: " + e.dimension + " , Score: " + e.component + " , URL:" + DBFinder.pageIDHandler.getString(e.dimension));
-            }catch(IOException ee){}
+        Scanner scanner = new Scanner(System.in);
+        while(true){
+            System.out.println("Input query: ");
+            String query = scanner.nextLine();
+            long start = System.currentTimeMillis();
+            Query q = preprocessQuery(query);
+            LinkedList<Entry> result = search(q, 50);
+            System.out.println("result length:" + result.size());
+            for (Entry e : result) {
+                try{
+                    PageSummary ps = getPageSummary(e.dimension, e.component);
+                    System.out.println("Page ID: " + e.dimension + " , Score: " + e.component + " , URL:" + DBFinder.pageIDHandler.getString(e.dimension));
+                }catch(IOException ee){}
+            }
+            System.out.println("Time used: " + (System.currentTimeMillis() - start) + " ms");
+
+            System.out.println("Relevance feedback test");
+            LinkedList<Long> wordIDs;
+            try {
+                wordIDs = SearchEngine.get5MostFrequentWords(result.getFirst().dimension);
+                LinkedList<Entry> result2 = SearchEngine.relevanceFeedbackSearch(q, 50, wordIDs);
+                System.out.println("result length:" + result2.size());
+                for (Entry e : result) {
+                    try{
+                        PageSummary ps = getPageSummary(e.dimension, e.component);
+                        System.out.println("Page ID: " + e.dimension + " , Score: " + e.component + " , URL:" + DBFinder.pageIDHandler.getString(e.dimension));
+                    }catch(IOException ee){}
+                }
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
         }
     }
 }

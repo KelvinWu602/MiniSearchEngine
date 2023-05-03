@@ -8,8 +8,8 @@ public class LinkHandler {
     private HTable<Long, LinkedList<Long>> backLinks;
 
     public LinkHandler() throws IOException {
-        forwardLinks = new HTable<Long, LinkedList<Long>>(DBFinder.getHTree(TableNames.PARENT_CHILDREN));
-        backLinks = new HTable<Long, LinkedList<Long>>(DBFinder.getHTree(TableNames.CHILD_PARENT));
+        forwardLinks = new HTable<Long, LinkedList<Long>>(DBFinder.getHTree(TableNames.PARENT_CHILDREN),256L);
+        backLinks = new HTable<Long, LinkedList<Long>>(DBFinder.getHTree(TableNames.CHILD_PARENT),256L);
     }
 
     public void addLink(Long parent, LinkedList<Long> children) throws IOException {
