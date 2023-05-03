@@ -193,7 +193,7 @@ public class SearchEngine {
 
     public static void main(String[] args) {
         setup();
-        LinkedList<Entry> result = search("cs faculty", 10);
+        LinkedList<Entry> result = search("facebook instagram \"HKUST\"", 10);
         System.out.println("result length:" + result.size());
         for (Entry e : result) {
             try{
