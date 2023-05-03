@@ -160,12 +160,14 @@ public class SearchEngine {
         LinkedList<String> urls = new LinkedList<String>();
         if(pageIDs==null) return urls;
         for(Long pageID : pageIDs){
+            String url = "";
             try {
-                urls.add(DBFinder.pageIDHandler.getString(pageID));
+                url = DBFinder.pageIDHandler.getString(pageID);
             } catch (IOException e) {
                 System.err.println("Failed to get URL with pageID: " + pageID);
                 continue;
             }
+            urls.add(url);
         }
         return urls;
     }
