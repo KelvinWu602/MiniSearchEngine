@@ -193,14 +193,15 @@ public class Index {
         return result;
     }
 
-    public HTable<Long,LinkedList<Long>> getWordListOfPage(long pageID) throws IOException {
-        return forwardIndex;
+    public LinkedList<Long> getWordListOfPage(long pageID) throws IOException {
+        return (LinkedList<Long>)forwardIndex.get(pageID);
     }
 
     public long getFrequencyInPage(long pageID, long wordID) throws IOException {
         long postingsID = invertedIndex.get(wordID);
         BTable<Long,Posting> postingList = new BTable<Long, Posting>(DBFinder.getBTree(postingsID, new LongComparator()));
         Posting posting = postingList.get(pageID);
+        // System.out.println("pageID:" + pageID + " word:" + DBFinder.wordIDHandler.getString(wordID) + " frequency:" + posting.frequency + "\n");
         return posting.frequency;
     }
 

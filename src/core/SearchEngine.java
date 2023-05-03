@@ -177,10 +177,8 @@ public class SearchEngine {
             summary.childLinks = pageIDToURLs(DBFinder.linkHandler.getChildren(pageID));
 
             summary.keywords = new HashMap<>();
-            HTable<Long,LinkedList<Long>> wordIDList = contentIndex.getWordListOfPage(pageID);
-            FastIterator it = wordIDList.keys();
-            Long wordID;
-            while((wordID = (Long)it.next())!=null) {
+            LinkedList<Long> wordIDList = contentIndex.getWordListOfPage(pageID);
+            for(Long wordID : wordIDList) {
                 long tf = contentIndex.getFrequencyInPage(pageID, wordID);
                 summary.keywords.put(DBFinder.wordIDHandler.getString(wordID), tf);
             }
@@ -197,6 +195,7 @@ public class SearchEngine {
         System.out.println("result length:" + result.size());
         for (Entry e : result) {
             try{
+                PageSummary ps = getPageSummary(e.dimension, e.component);
                 System.out.println("Page ID: " + e.dimension + " , Score: " + e.component + " , URL:" + DBFinder.pageIDHandler.getString(e.dimension));
             }catch(IOException ee){}
         }
