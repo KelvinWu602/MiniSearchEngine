@@ -13,6 +13,10 @@ public class MetadataHandler {
         metadatas.put(pageID, metadata);
     }
 
+    public PageMetadata getMetadata(long pageID) throws IOException {
+        return metadatas.get(pageID);
+    }
+
     public boolean pageUpToDate(long pageID, long lastModified) throws IOException {
         //input lastModified : HTTP Header Last Modified
 		PageMetadata pagedata = metadatas.get(pageID);
@@ -20,5 +24,6 @@ public class MetadataHandler {
 		if(pagedata.lastModified < lastModified) return false;
 		return true;
     }
+
 }
 

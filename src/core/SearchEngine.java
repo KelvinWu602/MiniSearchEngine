@@ -9,9 +9,13 @@ import java.util.LinkedList;
 import IRUtilities.DBFinder;
 import IRUtilities.DocVector;
 import IRUtilities.Entry;
+import IRUtilities.HTable;
+import IRUtilities.PageMetadata;
+import IRUtilities.PageSummary;
 import IRUtilities.Preprocessor;
 import IRUtilities.Query;
 import IRUtilities.TableNames;
+import jdbm.helper.FastIterator;
 
 public class SearchEngine {
     private static Index contentIndex;
@@ -149,6 +153,44 @@ public class SearchEngine {
         return scores;
     }
 
+    private static LinkedList<String> pageIDToURLs(LinkedList<Long> pageIDs){
+        LinkedList<String> urls = new LinkedList<String>();
+        for(Long pageID : pageIDs){
+            try {
+                urls.add(DBFinder.pageIDHandler.getString(pageID));
+            } catch (IOException e) {
+                System.err.println("Failed to get URL with pageID: " + pageID);
+                continue;
+            }
+        }
+        return urls;
+    }
+
+    public static PageSummary getPageSummary(long pageID, double score) {
+        PageSummary summary = new PageSummary();
+        try {
+            PageMetadata metadata = DBFinder.pageMetadata.getMetadata(pageID);
+            summary.url = DBFinder.pageIDHandler.getString(pageID);
+            summary.score = score;
+            summary.metadata = metadata;
+            summary.parentLinks = pageIDToURLs(DBFinder.linkHandler.getParents(pageID));
+            summary.childLinks = pageIDToURLs(DBFinder.linkHandler.getChildren(pageID));
+
+            summary.keywords = new HashMap<>();
+            HTable<Long,LinkedList<Long>> wordIDList = contentIndex.getWordListOfPage(pageID);
+            FastIterator it = wordIDList.keys();
+            Long wordID;
+            while((wordID = (Long)it.next())!=null) {
+                long tf = contentIndex.getFrequencyInPage(pageID, wordID);
+                summary.keywords.put(DBFinder.wordIDHandler.getString(wordID), tf);
+            }
+        } catch (IOException e) {
+            System.err.println("Failed to get page summary.");
+        }
+        return summary;
+    }
+
+
     public static void main(String[] args) {
         setup();
         LinkedList<Entry> result = search("cs faculty", 10);
@@ -160,3 +202,4 @@ public class SearchEngine {
         }
     }
 }
+

@@ -11,3 +11,7 @@ PageRank is rerunnable.
 testing search function backend with:
 java -cp ".:lib/htmlparser.jar:lib/jdbm-1.0.jar:bin" SearchEngine
 Modify the function argument in main method, use double quote to specify a phrase, use space to separate words.
+
+
+building jar
+jar cvfm searchengine.jar resources/manifest.txt -C bin . src 
