@@ -5,13 +5,12 @@ java -cp ".:lib/htmlparser.jar:lib/jdbm-1.0.jar:bin" core.Spider <number of page
 Spider is rerunnable, without deleting the test.db and test.lg file.
 
 perform pagerank calculation with:
-java -cp ".:lib/htmlparser.jar:lib/jdbm-1.0.jar:bin" PageRank
+java -cp ".:lib/htmlparser.jar:lib/jdbm-1.0.jar:bin" core.PageRank
 PageRank is rerunnable.
 
 testing search function backend with:
-java -cp ".:lib/htmlparser.jar:lib/jdbm-1.0.jar:bin" SearchEngine
-Modify the function argument in main method, use double quote to specify a phrase, use space to separate words.
-
+java -cp ".:lib/htmlparser.jar:lib/jdbm-1.0.jar:bin" core.SearchEngine
+Start a searchEngine cmdline tool. Will automatically perform relevance feedback using the first returned result.
 
 building jar
 jar cvfm searchengine.jar resources/manifest.txt -C bin . src 
