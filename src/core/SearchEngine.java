@@ -167,7 +167,7 @@ public class SearchEngine {
                 System.err.println("Failed to get URL with pageID: " + pageID);
                 continue;
             }
-            urls.add(url);
+            if(url!=null) urls.add(url);
         }
         return urls;
     }
@@ -233,32 +233,43 @@ public class SearchEngine {
             String query = scanner.nextLine();
             long start = System.currentTimeMillis();
             Query q = preprocessQuery(query);
-            LinkedList<Entry> result = search(q, 50);
+            LinkedList<Entry> result = search(q, 5);
             System.out.println("result length:" + result.size());
             for (Entry e : result) {
                 try{
                     PageSummary ps = getPageSummary(e.dimension, e.component);
                     System.out.println("Page ID: " + e.dimension + " , Score: " + e.component + " , URL:" + DBFinder.pageIDHandler.getString(e.dimension));
+                    System.out.println("parent");
+                    int i = 0;
+                    for(String s : ps.parentLinks){
+                        if(i++>5) break;
+                        System.out.println(s);
+                    }
+                    System.out.println("child");
+                    for(String s : ps.parentLinks){
+                        if(i++>5) break;
+                        System.out.println(s);
+                    }
                 }catch(IOException ee){}
             }
             System.out.println("Time used: " + (System.currentTimeMillis() - start) + " ms");
 
-            System.out.println("Relevance feedback test");
-            LinkedList<Long> wordIDs;
-            try {
-                wordIDs = SearchEngine.get5MostFrequentWords(result.getFirst().dimension);
-                LinkedList<Entry> result2 = SearchEngine.relevanceFeedbackSearch(q, 50, wordIDs);
-                System.out.println("result length:" + result2.size());
-                for (Entry e : result) {
-                    try{
-                        PageSummary ps = getPageSummary(e.dimension, e.component);
-                        System.out.println("Page ID: " + e.dimension + " , Score: " + e.component + " , URL:" + DBFinder.pageIDHandler.getString(e.dimension));
-                    }catch(IOException ee){}
-                }
-            } catch (IOException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            }
+            // System.out.println("Relevance feedback test");
+            // LinkedList<Long> wordIDs;
+            // try {
+            //     wordIDs = SearchEngine.get5MostFrequentWords(result.getFirst().dimension);
+            //     LinkedList<Entry> result2 = SearchEngine.relevanceFeedbackSearch(q, 50, wordIDs);
+            //     System.out.println("result length:" + result2.size());
+            //     for (Entry e : result) {
+            //         try{
+            //             PageSummary ps = getPageSummary(e.dimension, e.component);
+            //             System.out.println("Page ID: " + e.dimension + " , Score: " + e.component + " , URL:" + DBFinder.pageIDHandler.getString(e.dimension));
+            //         }catch(IOException ee){}
+            //     }
+            // } catch (IOException e1) {
+            //     // TODO Auto-generated catch block
+            //     e1.printStackTrace();
+            // }
         }
     }
 }

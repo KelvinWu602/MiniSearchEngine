@@ -100,6 +100,10 @@ public class LRUCache<K,V> {
         if(!map.containsKey(key)) return null;
         //move the node to the head
         Node<K,V> node = map.get(key);
+        if(node==null){
+            map.remove(key);
+            return null;
+        }
         list.moveToTop(node);
         return node.value;
     }   
