@@ -61,17 +61,17 @@ public class SearchEngine {
         //get cosine score (Long: pageID, Double: score)
         System.out.println("Getting cosine score from content");
         DocVector contentscores = new DocVector(getCosineScore(contentIndex, q, qVec, 1));
-        // for(Entry e : contentscores.linearize()){
-        //     System.out.println("PageID: " + e.dimension + " Score: " + e.component);
-        // }
-        // System.out.println("");
+        for(Entry e : contentscores.linearize()){
+            System.out.println("PageID: " + e.dimension + " Score: " + e.component);
+        }
+        System.out.println("");
         
         System.out.println("Getting cosine score from title");
         DocVector titlescores = new DocVector(getCosineScore(titleIndex, q, qVec, 5));
-        // for(Entry e : titlescores.linearize()){
-        //     System.out.println("PageID: " + e.dimension + " Score: " + e.component);
-        // }
-        // System.out.println("");
+        for(Entry e : titlescores.linearize()){
+            System.out.println("PageID: " + e.dimension + " Score: " + e.component);
+        }
+        System.out.println("");
 
         //PageRank Score
         //Do not return all pagerank score, only add pagerank score to matched pages
@@ -239,7 +239,8 @@ public class SearchEngine {
             System.out.println("Input query: ");
             String query = scanner.nextLine();
             long start = System.currentTimeMillis();
-            Query q = preprocessQuery(query);
+            // Query q = preprocessQuery(query);
+            Query q = preprocessQuery("blood title sand search aka \"harry potter\"");
             LinkedList<Entry> result = search(q, 50);
             System.out.println("result length:" + result.size());
             for (Entry e : result) {
@@ -276,7 +277,7 @@ public class SearchEngine {
                 wordIDs = SearchEngine.get5MostFrequentWords(result.getFirst().dimension);
                 LinkedList<Entry> result2 = SearchEngine.relevanceFeedbackSearch(q, 50, wordIDs);
                 System.out.println("result length:" + result2.size());
-                for (Entry e : result) {
+                for (Entry e : result2) {
                     try{
                         PageSummary ps = getPageSummary(e.dimension, e.component);
                         System.out.println("Page ID: " + e.dimension + " , Score: " + e.component + " , URL:" + DBFinder.pageIDHandler.getString(e.dimension));

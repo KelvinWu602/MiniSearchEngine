@@ -33,7 +33,7 @@ public class Index {
     public Index(String name) throws IOException {
         forwardIndex = new HTable<Long, LinkedList<Long>>(DBFinder.getHTree(name + "_forwardIndex"), 256L);
         invertedIndex = new HTable<Long, Long>(DBFinder.getHTree(name + "_invertedIndex"), 256L);
-        docVecCache = new LRUCache<Long, DocVecCache>(512); //cache 128 pages
+        docVecCache = new LRUCache<Long, DocVecCache>(512); //cache 512 pages
     }
 
     public void forwardIndexAdd(long pageID,LinkedList<Long> wordIDList) throws IOException {
@@ -94,12 +94,14 @@ public class Index {
                 postingList = pageContains(wordID); //slow
                 Posting posting = postingList.get(pageID); //slow
                 double df = postingList.size(); ///fast
-                double tf = (posting!=null)?posting.frequency:0; //fast
-                double idf = Math.log(N/df)/Math.log(2); //fast
-                // System.out.println("term weight for word:" + tf*idf);
-                docVector.addDimension(wordID, tf*idf); //fast
-                //find the tfmax
-                tfmax = Math.max(tf, tfmax);
+                if(df>0){
+                    double tf = (posting!=null)?posting.frequency:0; //fast
+                    double idf = Math.log(N/df)/Math.log(2); //fast
+                    // System.out.println("term weight for word:" + tf*idf);
+                    docVector.addDimension(wordID, tf*idf); //fast
+                    //find the tfmax
+                    tfmax = Math.max(tf, tfmax);
+                }
             }
 
             //cache the docVector
@@ -116,9 +118,11 @@ public class Index {
             HashMap<Long,Posting> postingList = pageContains(phrase);
             Posting posting = postingList.get(pageID);
             double df = postingList.size();
-            double tf = (posting!=null)?posting.frequency:0;
-            double idf = Math.log(N/df)/Math.log(2);
-            docVector.addDimension(DBFinder.wordIDHandler.getPhraseTempID(phrase), tf*idf);
+            if(df>0){
+                double tf = (posting!=null)?posting.frequency:0;
+                double idf = Math.log(N/df)/Math.log(2);
+                docVector.addDimension(DBFinder.wordIDHandler.getPhraseTempID(phrase), tf*idf);
+            }
             //max single word tf >= max phrase tf
         }    
 

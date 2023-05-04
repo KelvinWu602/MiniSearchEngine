@@ -8,7 +8,7 @@ import jdbm.helper.FastIterator;
 
 public class DocVector {
     //hashmap, key is dimension, value is component
-    HashMap<Long,Double> v;
+    public HashMap<Long,Double> v;
 
     public DocVector(){
         v = new HashMap<Long,Double>();
