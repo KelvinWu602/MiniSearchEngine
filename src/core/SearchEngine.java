@@ -10,6 +10,7 @@ import java.util.Scanner;
 import IRUtilities.DBFinder;
 import IRUtilities.DocVector;
 import IRUtilities.Entry;
+import IRUtilities.HTable;
 import IRUtilities.PageMetadata;
 import IRUtilities.PageSummary;
 import IRUtilities.Preprocessor;
@@ -51,7 +52,6 @@ public class SearchEngine {
     }
 
     public static LinkedList<Entry> search(Query q, int numResults) {
-        LinkedList<Entry> result = new LinkedList<Entry>();
         System.out.println("Query.words: " + q.words.toString());
         System.out.println("Query.phrases: " + q.phrases.toString());
 
@@ -74,17 +74,23 @@ public class SearchEngine {
         // System.out.println("");
 
         //PageRank Score
-        DocVector pagerankScore = null;
-        try {
-            pagerankScore = new DocVector(DBFinder.pagerankScore);
-        } catch (IOException e1) {
-            System.err.println("Unable to read pagerank score file. Use only consine similarity.");
-            e1.printStackTrace();
-        }
+        //Do not return all pagerank score, only add pagerank score to matched pages
+        HTable<Long,Double> pagerankScore = null;
+        pagerankScore = DBFinder.pagerankScore;
 
         //combine scores
         DocVector scores = DocVector.add(contentscores,titlescores);
-        if(pagerankScore!=null) scores = DocVector.add(pagerankScore, scores);
+        if(pagerankScore!=null) {
+            for(Entry e : scores.linearize()){
+                Double PRscore = null;
+                try {
+                    PRscore = pagerankScore.get(e.dimension);
+                } catch (IOException e1) {}
+                if(PRscore!=null){
+                    e.component += PRscore;
+                }
+            }
+        }
         // System.out.println("contentscores size:" + contentscores.size());
         // System.out.println("titlescores size:" + titlescores.size());
         // System.out.println("Scores size:" + scores.size());
@@ -98,6 +104,7 @@ public class SearchEngine {
         });
 
         //get top numResults results
+        System.out.println("SortedScores length:" + sortedScores.size());
         while(sortedScores.size()>numResults){
             sortedScores.removeLast();
         }
@@ -233,23 +240,31 @@ public class SearchEngine {
             String query = scanner.nextLine();
             long start = System.currentTimeMillis();
             Query q = preprocessQuery(query);
-            LinkedList<Entry> result = search(q, 5);
+            LinkedList<Entry> result = search(q, 50);
             System.out.println("result length:" + result.size());
             for (Entry e : result) {
                 try{
                     PageSummary ps = getPageSummary(e.dimension, e.component);
                     System.out.println("Page ID: " + e.dimension + " , Score: " + e.component + " , URL:" + DBFinder.pageIDHandler.getString(e.dimension));
-                    System.out.println("parent");
                     int i = 0;
+                    for(Map.Entry<String,Long> entry : ps.keywords.entrySet()){
+                        if(i++>10) break;
+                        System.out.print(entry.getKey() + " " + entry.getValue() + "; ");
+                    }
+                    System.out.println("");
+                    System.out.println("parent");
+                    i = 0;
                     for(String s : ps.parentLinks){
                         if(i++>5) break;
                         System.out.println(s);
                     }
+                    i=0;
                     System.out.println("child");
                     for(String s : ps.parentLinks){
                         if(i++>5) break;
                         System.out.println(s);
                     }
+                    System.out.println();
                 }catch(IOException ee){}
             }
             System.out.println("Time used: " + (System.currentTimeMillis() - start) + " ms");
