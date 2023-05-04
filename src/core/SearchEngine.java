@@ -246,6 +246,7 @@ public class SearchEngine {
                 try{
                     PageSummary ps = getPageSummary(e.dimension, e.component);
                     System.out.println("Page ID: " + e.dimension + " , Score: " + e.component + " , URL:" + DBFinder.pageIDHandler.getString(e.dimension));
+                    System.out.println(ps.metadata.lastModified + " " + ps.metadata.title + " " + ps.metadata.size);
                     int i = 0;
                     for(Map.Entry<String,Long> entry : ps.keywords.entrySet()){
                         if(i++>10) break;
@@ -269,22 +270,22 @@ public class SearchEngine {
             }
             System.out.println("Time used: " + (System.currentTimeMillis() - start) + " ms");
 
-            // System.out.println("Relevance feedback test");
-            // LinkedList<Long> wordIDs;
-            // try {
-            //     wordIDs = SearchEngine.get5MostFrequentWords(result.getFirst().dimension);
-            //     LinkedList<Entry> result2 = SearchEngine.relevanceFeedbackSearch(q, 50, wordIDs);
-            //     System.out.println("result length:" + result2.size());
-            //     for (Entry e : result) {
-            //         try{
-            //             PageSummary ps = getPageSummary(e.dimension, e.component);
-            //             System.out.println("Page ID: " + e.dimension + " , Score: " + e.component + " , URL:" + DBFinder.pageIDHandler.getString(e.dimension));
-            //         }catch(IOException ee){}
-            //     }
-            // } catch (IOException e1) {
-            //     // TODO Auto-generated catch block
-            //     e1.printStackTrace();
-            // }
+            System.out.println("Relevance feedback test");
+            LinkedList<Long> wordIDs;
+            try {
+                wordIDs = SearchEngine.get5MostFrequentWords(result.getFirst().dimension);
+                LinkedList<Entry> result2 = SearchEngine.relevanceFeedbackSearch(q, 50, wordIDs);
+                System.out.println("result length:" + result2.size());
+                for (Entry e : result) {
+                    try{
+                        PageSummary ps = getPageSummary(e.dimension, e.component);
+                        System.out.println("Page ID: " + e.dimension + " , Score: " + e.component + " , URL:" + DBFinder.pageIDHandler.getString(e.dimension));
+                    }catch(IOException ee){}
+                }
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
         }
     }
 }
