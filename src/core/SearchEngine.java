@@ -239,8 +239,8 @@ public class SearchEngine {
             System.out.println("Input query: ");
             String query = scanner.nextLine();
             long start = System.currentTimeMillis();
-            // Query q = preprocessQuery(query);
-            Query q = preprocessQuery("blood title sand search aka \"harry potter\"");
+            Query q = preprocessQuery(query);
+            // Query q = preprocessQuery("blood title sand search aka \"harry potter\"");
             LinkedList<Entry> result = search(q, 50);
             System.out.println("result length:" + result.size());
             for (Entry e : result) {
