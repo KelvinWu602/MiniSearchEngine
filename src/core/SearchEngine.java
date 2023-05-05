@@ -51,6 +51,11 @@ public class SearchEngine {
         return q;
     }
 
+    // a function for testing
+    public static DocVector getContentDocVector(long pageID, LinkedList<LinkedList<Long>> phrases) throws IOException{
+        return contentIndex.getDocVector(pageID, phrases);
+    }
+
     public static LinkedList<Entry> search(Query q, int numResults) {
         System.out.println("Query.words: " + q.words.toString());
         System.out.println("Query.phrases: " + q.phrases.toString());
@@ -61,17 +66,17 @@ public class SearchEngine {
         //get cosine score (Long: pageID, Double: score)
         System.out.println("Getting cosine score from content");
         DocVector contentscores = new DocVector(getCosineScore(contentIndex, q, qVec, 1));
-        for(Entry e : contentscores.linearize()){
-            System.out.println("PageID: " + e.dimension + " Score: " + e.component);
-        }
-        System.out.println("");
+        // for(Entry e : contentscores.linearize()){
+        //     System.out.println("PageID: " + e.dimension + " Score: " + e.component);
+        // }
+        // System.out.println("");
         
         System.out.println("Getting cosine score from title");
         DocVector titlescores = new DocVector(getCosineScore(titleIndex, q, qVec, 5));
-        for(Entry e : titlescores.linearize()){
-            System.out.println("PageID: " + e.dimension + " Score: " + e.component);
-        }
-        System.out.println("");
+        // for(Entry e : titlescores.linearize()){
+        //     System.out.println("PageID: " + e.dimension + " Score: " + e.component);
+        // }
+        // System.out.println("");
 
         //PageRank Score
         //Do not return all pagerank score, only add pagerank score to matched pages
@@ -87,7 +92,7 @@ public class SearchEngine {
                     PRscore = pagerankScore.get(e.dimension);
                 } catch (IOException e1) {}
                 if(PRscore!=null){
-                    e.component += PRscore;
+                   scores.put(e.dimension, e.component + PRscore);
                 }
             }
         }

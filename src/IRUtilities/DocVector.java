@@ -92,6 +92,10 @@ public class DocVector {
         }
     }
 
+    public void put(long dimension, double component) {
+        v.put(dimension, component);
+    }
+
     public int size() {
         return v.size();
     }
