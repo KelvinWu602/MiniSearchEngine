@@ -271,22 +271,22 @@ public class SearchEngine {
             }
             System.out.println("Time used: " + (System.currentTimeMillis() - start) + " ms");
 
-            System.out.println("Relevance feedback test");
-            LinkedList<Long> wordIDs;
-            try {
-                wordIDs = SearchEngine.get5MostFrequentWords(result.getFirst().dimension);
-                LinkedList<Entry> result2 = SearchEngine.relevanceFeedbackSearch(q, 50, wordIDs);
-                System.out.println("result length:" + result2.size());
-                for (Entry e : result2) {
-                    try{
-                        PageSummary ps = getPageSummary(e.dimension, e.component);
-                        System.out.println("Page ID: " + e.dimension + " , Score: " + e.component + " , URL:" + DBFinder.pageIDHandler.getString(e.dimension));
-                    }catch(IOException ee){}
-                }
-            } catch (IOException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            }
+            // System.out.println("Relevance feedback test");
+            // LinkedList<Long> wordIDs;
+            // try {
+            //     wordIDs = SearchEngine.get5MostFrequentWords(result.getFirst().dimension);
+            //     LinkedList<Entry> result2 = SearchEngine.relevanceFeedbackSearch(q, 50, wordIDs);
+            //     System.out.println("result length:" + result2.size());
+            //     for (Entry e : result2) {
+            //         try{
+            //             PageSummary ps = getPageSummary(e.dimension, e.component);
+            //             System.out.println("Page ID: " + e.dimension + " , Score: " + e.component + " , URL:" + DBFinder.pageIDHandler.getString(e.dimension));
+            //         }catch(IOException ee){}
+            //     }
+            // } catch (IOException e1) {
+            //     // TODO Auto-generated catch block
+            //     e1.printStackTrace();
+            // }
         }
     }
 }

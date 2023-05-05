@@ -140,14 +140,10 @@ public class Spider {
 	}
 
     public static void main(String[] args) {
-        // int numOfPages = Integer.parseInt(args[0]);
+        int numOfPages = Integer.parseInt(args[0]);
         Spider spider = new Spider("test");
-        // spider.setStartingURL("http://www.cse.ust.hk");
-        // spider.setStartingURL("http://ias.ust.hk/");
-        // spider.setStartingURL("http://ias.ust.hk/web/ias/eng/");
         spider.setStartingURL("https://www.cse.ust.hk/~kwtleung/COMP4321/testpage.htm");
-        // spider.crawlPages(numOfPages);
-        spider.crawlPages(300);
+        spider.crawlPages(numOfPages);
         System.out.println("Complete");
     }
 }

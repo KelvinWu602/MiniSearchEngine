@@ -44,8 +44,8 @@ public class PageRank {
         long consecutiveConverged = 0;
         long current = 0;
         long sizeOfPages = DBFinder.pageIDHandler.size();
-        HashMap<Long,Double> cache = loadCache(current, sizeOfPages);
         int cacheSize = 256;
+        HashMap<Long,Double> cache = loadCache(current, cacheSize);
         long nextCachePoint = (current+cacheSize)%sizeOfPages;
 
         while(consecutiveConverged<sizeOfPages){

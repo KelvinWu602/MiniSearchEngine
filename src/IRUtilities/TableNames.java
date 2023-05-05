@@ -11,5 +11,4 @@ public class TableNames {
     public static final String CHILD_PARENT = "child_parent";
     public static final String ID_METADATA = "id_metadata";
     public static final String ID_PAGERANK = "id_pagerank";
-    public static final String DOCVEC_CACHE = "docvec_cache";
 }
