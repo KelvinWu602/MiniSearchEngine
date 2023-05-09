@@ -9,8 +9,7 @@ java -cp ".:lib/htmlparser.jar:lib/jdbm-1.0.jar:bin" core.PageRank
 PageRank is rerunnable.
 
 testing search function backend with:
-java -cp ".:lib/htmlparser.jar:lib/jdbm-1.0.jar:bin" core.SearchEngine
-Start a searchEngine cmdline tool. Will automatically perform relevance feedback using the first returned result.
+cStart a searchEngine cmdline tool. Will automatically perform relevance feedback using the first returned result.
 
 building jar
 jar cvfm searchengine.jar resources/manifest.txt -C bin . src 

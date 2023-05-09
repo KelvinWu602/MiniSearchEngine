@@ -1,11 +1,12 @@
 package core;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
-
+import java.util.PriorityQueue;
 
 import IRUtilities.BTable;
 import IRUtilities.DBFinder;
@@ -14,6 +15,7 @@ import IRUtilities.DocVector;
 import IRUtilities.HTable;
 import IRUtilities.LRUCache;
 import IRUtilities.Posting;
+import IRUtilities.WordProfile;
 import jdbm.helper.LongComparator;
 import jdbm.helper.Tuple;
 import jdbm.helper.TupleBrowser;
@@ -22,7 +24,8 @@ public class Index {
     //content index or title index
 
     //pageID --> List<wordID>
-    private HTable<Long, LinkedList<Long>> forwardIndex; 
+    // private HTable<Long, LinkedList<Long>> forwardIndex; 
+    private HTable<Long, PriorityQueue<WordProfile>> forwardIndex;
     //wordID --> BTree ID (BTree PostingList)
     private HTable<Long, Long> invertedIndex;
     //pageID --> Posting
@@ -31,17 +34,31 @@ public class Index {
     private LRUCache<Long, DocVecCache> docVecCache;
 
     public Index(String name) throws IOException {
-        forwardIndex = new HTable<Long, LinkedList<Long>>(DBFinder.getHTree(name + "_forwardIndex"), 256L);
+        forwardIndex = new HTable<Long, PriorityQueue<WordProfile>>(DBFinder.getHTree(name + "_forwardIndex"), 256L);
         invertedIndex = new HTable<Long, Long>(DBFinder.getHTree(name + "_invertedIndex"), 256L);
         docVecCache = new LRUCache<Long, DocVecCache>(512); //cache 512 pages
     }
 
     public void forwardIndexAdd(long pageID,LinkedList<Long> wordIDList) throws IOException {
-        LinkedList<Long> wordIDs = forwardIndex.get(pageID);
+        PriorityQueue<WordProfile> wordIDs = forwardIndex.get(pageID);
         if(wordIDs==null) {
-            wordIDs = new LinkedList<Long>();
+            wordIDs = new PriorityQueue<WordProfile>(Collections.reverseOrder());
         }
-        wordIDs.addAll(wordIDList);
+        //count frequency of each wordID
+        HashMap<Long,Long> frequencyTable = new HashMap<>();
+        for(Long wordID : wordIDList){
+            if(frequencyTable.containsKey(wordID)){
+                frequencyTable.put(wordID, frequencyTable.get(wordID)+1);
+            }else{
+                frequencyTable.put(wordID, 1L);
+            }
+        }   
+
+        for(Map.Entry<Long,Long> e : frequencyTable.entrySet()){
+            //add WordProfile(pageID, frequency) to wordIDs heap 
+            wordIDs.add(new WordProfile(e.getKey(), e.getValue()));
+        }
+
         forwardIndex.put(pageID, wordIDs);
     }
 
@@ -58,10 +75,11 @@ public class Index {
     }
 
     public void removePage(long pageID) throws IOException {
-        LinkedList<Long> wordIDs = forwardIndex.get(pageID);
+        PriorityQueue<WordProfile> wordIDs = forwardIndex.get(pageID);
         if(wordIDs==null) return;
-        for(Long wordID : wordIDs){
-            postingList = pageContains(wordID);
+        while(wordIDs.size()>0){
+            WordProfile wordProfile = wordIDs.poll();
+            postingList = pageContains(wordProfile.wordID);
             postingList.remove(pageID);
         }
         forwardIndex.remove(pageID);
@@ -83,13 +101,16 @@ public class Index {
             tfmax = docVecCacheEntry.tfmax;
         }else{
             docVector = new DocVector(); //ok in speed
-            LinkedList<Long> wordIDs = forwardIndex.get(pageID); //ok in speed
+            PriorityQueue<WordProfile> wordIDs = forwardIndex.get(pageID); //ok in speed
+            PriorityQueue<WordProfile> temp = new PriorityQueue<WordProfile>(Collections.reverseOrder());
             if(wordIDs==null || wordIDs.size()==0) {
                 return docVector;
             }
             tfmax = 0;
-
-            for(long wordID : wordIDs) {
+            while(wordIDs.size()>0) {
+                WordProfile wordProfile = wordIDs.poll(); //ok in speed
+                temp.add(wordProfile);
+                long wordID = wordProfile.wordID; //ok in speed
                 //calculate the term weight for this page
                 postingList = pageContains(wordID); //slow
                 Posting posting = postingList.get(pageID); //slow
@@ -103,6 +124,7 @@ public class Index {
                     tfmax = Math.max(tf, tfmax);
                 }
             }
+            forwardIndex.put(pageID,temp);
 
             //cache the docVector
             docVector.multiplyScalar(1.0/tfmax);
@@ -221,8 +243,16 @@ public class Index {
         return result;
     }
 
-    public LinkedList<Long> getWordListOfPage(long pageID) throws IOException {
-        return (LinkedList<Long>)forwardIndex.get(pageID);
+    public LinkedList<WordProfile> getWordListOfPage(long pageID, int n) throws IOException {
+        LinkedList<WordProfile> result = new LinkedList<>();
+        PriorityQueue<WordProfile> wordIDs = (PriorityQueue<WordProfile>)forwardIndex.get(pageID);
+        while(wordIDs.size()>0 && result.size() < n) {
+            result.add(wordIDs.poll());
+        }
+        for(WordProfile wordProfile : result) {
+            wordIDs.add(wordProfile);
+        }
+        return result;
     }
 
     public long getFrequencyInPage(long pageID, long wordID) throws IOException {

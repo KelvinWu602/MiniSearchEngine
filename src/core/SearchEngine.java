@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Scanner;
 
 import IRUtilities.DBFinder;
@@ -16,6 +17,7 @@ import IRUtilities.PageSummary;
 import IRUtilities.Preprocessor;
 import IRUtilities.Query;
 import IRUtilities.TableNames;
+import IRUtilities.WordProfile;
 
 public class SearchEngine {
     private static Index contentIndex;
@@ -194,11 +196,9 @@ public class SearchEngine {
             summary.parentLinks = pageIDToURLs(DBFinder.linkHandler.getParents(pageID));
             summary.childLinks = pageIDToURLs(DBFinder.linkHandler.getChildren(pageID));
 
-            summary.keywords = new HashMap<>();
-            LinkedList<Long> wordIDList = contentIndex.getWordListOfPage(pageID);
-            for(Long wordID : wordIDList) {
-                long tf = contentIndex.getFrequencyInPage(pageID, wordID);
-                summary.keywords.put(DBFinder.wordIDHandler.getString(wordID), tf);
+            summary.keywords = contentIndex.getWordListOfPage(pageID, 5);
+            for(WordProfile word : summary.keywords) {
+                word.word = DBFinder.wordIDHandler.getString(word.wordID);
             }
         } catch (Exception e) {
             System.err.println("Failed to get page summary for pageID: " + pageID);
@@ -207,26 +207,10 @@ public class SearchEngine {
     }
 
     public static LinkedList<Long> get5MostFrequentWords(long pageID) throws IOException {
-        LinkedList<Long> wordIDList = contentIndex.getWordListOfPage(pageID);
+        LinkedList<WordProfile> wordIDList = contentIndex.getWordListOfPage(pageID,5);
         LinkedList<Long> result = new LinkedList<Long>();
-        if(wordIDList==null) return result;
-        HashMap<Long,Long> wordFreq = new HashMap<Long,Long>();
-        for(long wordID : wordIDList) {
-            if(!wordFreq.containsKey(wordID)) { wordFreq.put(wordID, 1L); }
-            else { wordFreq.put(wordID, wordFreq.get(wordID)+1); }
-        }
-        LinkedList<Entry> sortlist = new LinkedList<Entry>();
-        for(Map.Entry<Long,Long> entry : wordFreq.entrySet()) {
-            sortlist.add(new Entry(entry.getKey(), entry.getValue()));
-        }
-        sortlist.sort(new Comparator<Entry>() {
-            @Override
-            public int compare(Entry o1, Entry o2) {
-                return Double.compare(o2.component,o1.component);
-            }
-        });
-        while(result.size()<5){
-            result.add(sortlist.removeFirst().dimension);
+        for(WordProfile word : wordIDList) {
+            result.add(word.wordID);
         }
         return result;
     }
@@ -254,9 +238,9 @@ public class SearchEngine {
                     System.out.println("Page ID: " + e.dimension + " , Score: " + e.component + " , URL:" + DBFinder.pageIDHandler.getString(e.dimension));
                     System.out.println(ps.metadata.lastModified + " " + ps.metadata.title + " " + ps.metadata.size);
                     int i = 0;
-                    for(Map.Entry<String,Long> entry : ps.keywords.entrySet()){
-                        if(i++>10) break;
-                        System.out.print(entry.getKey() + " " + entry.getValue() + "; ");
+                    for(WordProfile entry : ps.keywords){
+                        if(i++>5) break;
+                        System.out.print(entry.word + " " + entry.frequency + "; ");
                     }
                     System.out.println("");
                     System.out.println("parent");

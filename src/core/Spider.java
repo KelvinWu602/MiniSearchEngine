@@ -79,6 +79,7 @@ public class Spider {
             //add new index info
             DBFinder.pageMetadata.addMetadata(pageID, pp.metadata);
             contentIndex.forwardIndexAdd(pageID,pp.words);
+            
             titleIndex.forwardIndexAdd(pageID, pp.title);
             long position = 0;
             for(Long wordID : pp.words){

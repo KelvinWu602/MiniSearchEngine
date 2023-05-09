@@ -21,7 +21,7 @@ public class PageSummary {
     public double score;
     public String url;
     public PageMetadata metadata;
-    public HashMap<String, Long> keywords;
+    public LinkedList<WordProfile> keywords;
     public LinkedList<String> parentLinks;
     public LinkedList<String> childLinks;
 }

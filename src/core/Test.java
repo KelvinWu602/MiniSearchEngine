@@ -1,16 +1,25 @@
 package core;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 import java.util.Scanner;
 import IRUtilities.DocVector;
 import IRUtilities.Entry;
 import IRUtilities.Query;
 
-class A {
+class A implements Comparable<A>{
     public int a;
     public A(int a) {
         this.a = a;
+    }
+
+    @Override
+    public int compareTo(A o) {
+        // TODO Auto-generated method stub
+        return this.a - o.a;
     }
 }
 
